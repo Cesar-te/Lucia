@@ -20,6 +20,8 @@
   <body class="is-locked">
     <div class="noise" aria-hidden="true"></div>
     <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
+    <div class="magic-cursor" id="magicCursor" aria-hidden="true"><i></i></div>
 
     <header class="topbar" aria-label="Encabezado">
       <a class="brand" href="#inicio" aria-label="Ir al inicio">
@@ -36,6 +38,7 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="orb orb-one" aria-hidden="true"></div>
         <div class="orb orb-two" aria-hidden="true"></div>
+        <div class="shooting-stars" aria-hidden="true"><i></i><i></i><i></i></div>
 
         <div class="hero-copy">
           <p class="eyebrow reveal-item">21 de septiembre · un jardín solo para ti</p>
@@ -123,8 +126,27 @@
         <div class="swipe-indicator" aria-hidden="true"><i></i><span>desliza</span><b>→</b></div>
       </section>
 
+      <section class="name-section" id="constelacion" aria-labelledby="name-title">
+        <div class="name-aura" aria-hidden="true"></div>
+        <div class="constellation-stars" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="name-heading section-reveal">
+          <p class="eyebrow">Dicen que algunos nombres tienen luz propia</p>
+          <h2 id="name-title">El tuyo está escrito<br />en las estrellas</h2>
+        </div>
+        <button class="name-magic" id="nameMagic" type="button" aria-label="Iluminar el nombre de Lucía">
+          <svg viewBox="0 0 1000 300" role="img" aria-label="Lucía">
+            <text class="name-path name-shadow" x="50%" y="68%" text-anchor="middle">Lucía</text>
+            <text class="name-path name-front" x="50%" y="68%" text-anchor="middle">Lucía</text>
+          </svg>
+          <span class="magic-instruction"><i>✦</i> toca para iluminar su nombre <i>✦</i></span>
+        </button>
+        <p class="name-message" id="nameMessage" aria-live="polite">Y desde entonces, la noche tuvo un poco más de luz.</p>
+      </section>
+
       <section class="wish-section" aria-labelledby="wish-title">
-        <div class="wish-copy">
+        <div class="wish-copy section-reveal">
           <p class="eyebrow">Y antes de irte...</p>
           <h2 id="wish-title">Pide un deseo</h2>
           <p>Mantén presionada la flor y deja que el jardín lo guarde.</p>

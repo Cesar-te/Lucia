@@ -5,6 +5,12 @@ const garden = document.querySelector('#garden');
 const soundButton = document.querySelector('#soundButton');
 const wishFlower = document.querySelector('#wishFlower');
 const wishStatus = document.querySelector('#wishStatus');
+const nameSection = document.querySelector('#constelacion');
+const nameMagic = document.querySelector('#nameMagic');
+const nameMessage = document.querySelector('#nameMessage');
+const scrollProgress = document.querySelector('#scrollProgress');
+const magicCursor = document.querySelector('#magicCursor');
+const heroCopy = document.querySelector('.hero-copy');
 const canvas = document.querySelector('#sky');
 const ctx = canvas.getContext('2d');
 
@@ -14,6 +20,7 @@ let height = 0;
 let audioContext;
 let musicTimer;
 let holdingTimer;
+let trailTime = 0;
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -57,6 +64,10 @@ class Particle {
       this.alpha -= .004;
     }
     if (this.y < -20 || this.y > height + 20 || this.x < -30 || this.x > width + 30 || this.alpha <= 0) {
+      if (this.burst) {
+        this.dead = true;
+        return;
+      }
       this.reset(false);
       if (this.type === 'petal') this.y = -10;
     }
@@ -96,6 +107,7 @@ function seedParticles() {
 function animateSky() {
   ctx.clearRect(0, 0, width, height);
   particles.forEach(p => { p.update(); p.draw(); });
+  particles = particles.filter(p => !p.dead);
   if (!prefersReducedMotion) requestAnimationFrame(animateSky);
 }
 
@@ -160,6 +172,30 @@ function sparkleFlower(event) {
     particle.speedY = -1.8 + Math.random() * 2.5;
     particles.push(particle);
   }
+}
+
+function burstAt(x, y, amount = 36) {
+  for (let i = 0; i < amount; i++) {
+    const particle = new Particle(i % 4 === 0 ? 'petal' : 'glow', true);
+    particle.x = x;
+    particle.y = y;
+    particle.speedX = (Math.random() - .5) * 7;
+    particle.speedY = -3.8 + Math.random() * 6.4;
+    particle.alpha = .4 + Math.random() * .6;
+    particles.push(particle);
+  }
+}
+
+function illuminateName() {
+  const alreadyLit = nameMagic.classList.contains('lit');
+  nameMagic.classList.add('lit');
+  nameSection.classList.add('is-lit');
+  nameMessage.textContent = alreadyLit
+    ? 'Hay luces que vale la pena encender una y otra vez.'
+    : 'Y desde entonces, la noche tuvo un poco más de luz.';
+  const rect = nameMagic.getBoundingClientRect();
+  burstAt(rect.left + rect.width / 2, Math.min(height * .68, rect.top + rect.height * .58), window.innerWidth < 700 ? 38 : 70);
+  if (navigator.vibrate) navigator.vibrate([25, 35, 25]);
 }
 
 function startMusic() {
@@ -227,6 +263,57 @@ function cancelWish() {
   wishFlower.classList.remove('holding');
 }
 
+function updateScrollEffects() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  scrollProgress.style.transform = `scaleX(${Math.min(1, progress)})`;
+  if (!prefersReducedMotion && window.scrollY < window.innerHeight) {
+    garden.style.transform = `translate3d(0, ${window.scrollY * .045}px, 0)`;
+  }
+}
+
+function setupPointerMagic() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || prefersReducedMotion) return;
+
+  window.addEventListener('pointermove', event => {
+    magicCursor.classList.add('visible');
+    magicCursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+    const overAction = event.target.closest('button, a, .reason-card');
+    magicCursor.classList.toggle('over-action', Boolean(overAction));
+
+    const now = performance.now();
+    if (now - trailTime > 75 && !document.body.classList.contains('is-locked')) {
+      trailTime = now;
+      const spark = new Particle('glow', true);
+      spark.x = event.clientX;
+      spark.y = event.clientY;
+      spark.speedX = (Math.random() - .5) * .45;
+      spark.speedY = -.2;
+      spark.alpha = .32;
+      particles.push(spark);
+    }
+
+    if (window.scrollY < window.innerHeight) {
+      const offsetX = (event.clientX / width - .5) * 9;
+      const offsetY = (event.clientY / height - .5) * 6;
+      heroCopy.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
+    }
+  }, { passive: true });
+
+  document.documentElement.addEventListener('mouseleave', () => magicCursor.classList.remove('visible'));
+
+  document.querySelectorAll('.reason-card').forEach(card => {
+    card.addEventListener('pointermove', event => {
+      if (!card.classList.contains('in-view')) return;
+      const rect = card.getBoundingClientRect();
+      const rotateY = ((event.clientX - rect.left) / rect.width - .5) * 8;
+      const rotateX = (.5 - (event.clientY - rect.top) / rect.height) * 8;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+}
+
 openButton.addEventListener('click', () => {
   opening.classList.add('opened');
   document.body.classList.remove('is-locked');
@@ -236,6 +323,7 @@ openButton.addEventListener('click', () => {
 
 bloomButton.addEventListener('click', bloomAgain);
 garden.addEventListener('pointerdown', sparkleFlower);
+nameMagic.addEventListener('click', illuminateName);
 soundButton.addEventListener('click', toggleMusic);
 wishFlower.addEventListener('pointerdown', startWish);
 wishFlower.addEventListener('pointerup', cancelWish);
@@ -249,6 +337,10 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: .28 });
 observer.observe(document.querySelector('.letter-card'));
 document.querySelectorAll('.reason-card').forEach(card => observer.observe(card));
+document.querySelectorAll('.section-reveal').forEach(item => observer.observe(item));
+observer.observe(nameSection);
+
+window.addEventListener('scroll', updateScrollEffects, { passive: true });
 
 window.addEventListener('resize', () => {
   resizeCanvas();
@@ -258,3 +350,5 @@ window.addEventListener('resize', () => {
 resizeCanvas();
 seedParticles();
 animateSky();
+updateScrollEffects();
+setupPointerMagic();
