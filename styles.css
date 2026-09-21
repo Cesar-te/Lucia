@@ -56,6 +56,7 @@ button { font: inherit; }
   pointer-events: none;
 }
 .scroll-progress i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, #d89b13, #fff083); transform: scaleX(0); transform-origin: left; box-shadow: 0 0 12px #ffd631; }
+.is-locked .scroll-progress { opacity: 0; }
 
 .magic-cursor {
   position: fixed;
@@ -616,6 +617,30 @@ footer { min-height: 110px; display: flex; justify-content: center; align-items:
 .opening-rings i:nth-child(3) { bottom: 9%; left: 25%; }
 @keyframes slow-spin { to { transform: rotate(360deg); } }
 
+.opening-petals { position: absolute; z-index: 3; inset: 0; overflow: hidden; pointer-events: none; }
+.opening-petals b { position: absolute; left: var(--x); top: -8%; width: 7px; height: 15px; border-radius: 90% 10% 85% 15%; background: linear-gradient(145deg, #fff082, #e7aa10); opacity: .52; filter: drop-shadow(0 0 5px rgba(255,211,41,.25)); transform: rotate(var(--r)); animation: opening-petal-fall var(--t) var(--d) linear infinite; }
+@keyframes opening-petal-fall {
+  0% { translate: 0 -12vh; rotate: 0deg; opacity: 0; }
+  12% { opacity: .62; }
+  55% { translate: 45px 48vh; rotate: 190deg; }
+  100% { translate: -20px 112vh; rotate: 420deg; opacity: 0; }
+}
+
+.opening-vine { position: absolute; z-index: 2; top: 8%; width: clamp(150px, 17vw, 280px); height: 84%; overflow: visible; opacity: .27; pointer-events: none; }
+.opening-vine path { fill: none; stroke: #91ad42; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw-vine 3.4s .3s var(--ease) forwards; }
+.opening-vine ellipse { fill: rgba(92, 130, 39, .7); transform-box: fill-box; transform-origin: center; animation: leaf-pulse 4s ease-in-out infinite alternate; }
+.opening-vine-left { left: 0; }
+.opening-vine-right { right: 0; transform: scaleX(-1); }
+@keyframes draw-vine { to { stroke-dashoffset: 0; } }
+@keyframes leaf-pulse { to { fill: rgba(144, 170, 60, .75); } }
+
+.opening-side { position: absolute; z-index: 5; top: 25%; width: clamp(150px, 15vw, 225px); color: rgba(255,255,255,.52); }
+.opening-side span { display: block; margin-bottom: 16px; color: #d9bd53; text-transform: uppercase; letter-spacing: .24em; font-size: 8px; }
+.opening-side p { margin: 0; color: rgba(255,255,255,.47); font-family: "Italiana", Georgia, serif; font-size: clamp(16px, 1.35vw, 22px); line-height: 1.55; letter-spacing: 0; text-transform: none; }
+.opening-side-left { left: 5%; text-align: left; }
+.opening-side-right { right: 5%; text-align: right; }
+.opening-side-right p { line-height: 1.85; font-style: italic; }
+
 .opening-garden { position: absolute; z-index: 3; inset: auto 0 0; height: 48%; pointer-events: none; overflow: hidden; }
 .opening-garden i { position: absolute; left: var(--x); bottom: -5px; width: 3px; height: var(--h); border-radius: 99px; background: linear-gradient(90deg, #183209, #668c30, #1c390d); transform-origin: bottom; transform: scaleY(0) rotate(-2deg); animation: opening-grow 1.7s calc(var(--d) + .25s) var(--ease) forwards, opening-sway 3.6s calc(var(--d) + 2s) ease-in-out infinite alternate; }
 .opening-garden i:nth-child(even) { rotate: 3deg; }
@@ -688,8 +713,23 @@ footer { min-height: 110px; display: flex; justify-content: center; align-items:
   .opening-note { max-width: 285px; font-size: 12px !important; }
   .opening-rings { width: 145vw; top: -5vh; }
   .opening-garden { height: 38%; opacity: .85; }
-  .opening-garden i:nth-child(3), .opening-garden i:nth-child(6) { display: none; }
+  .opening-garden i:nth-child(3), .opening-garden i:nth-child(6), .opening-garden i:nth-child(7), .opening-garden i:nth-child(10) { display: none; }
   .opening-footer { bottom: max(18px, env(safe-area-inset-bottom)); }
+  .opening-side { display: none; }
+  .opening-vine { width: 42vw; opacity: .16; }
+  .opening-petals b:nth-child(even) { display: none; }
+}
+
+@media (min-width: 701px) and (max-width: 1280px) {
+  .opening-side { top: 18%; width: 150px; }
+  .opening-side-left { left: 3%; }
+  .opening-side-right { right: 3%; }
+  .opening-side p { font-size: 15px; }
+}
+
+@media (min-width: 701px) and (max-width: 1050px) {
+  .opening-side { display: none; }
+  .opening-vine { opacity: .18; }
 }
 
 @media (min-width: 701px) and (max-width: 1100px) {
