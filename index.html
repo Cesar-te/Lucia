@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260921-2" />
+    <link rel="stylesheet" href="styles.css?v=20260921-3" />
   </head>
   <body class="is-locked">
     <div class="noise" aria-hidden="true"></div>
@@ -39,6 +39,9 @@
         <div class="orb orb-one" aria-hidden="true"></div>
         <div class="orb orb-two" aria-hidden="true"></div>
         <div class="shooting-stars" aria-hidden="true"><i></i><i></i><i></i></div>
+        <span class="hero-monogram" aria-hidden="true">L</span>
+        <div class="hero-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="hero-side-note" aria-hidden="true">Una flor por cada pensamiento bonito</p>
 
         <div class="hero-copy">
           <p class="eyebrow reveal-item">21 de septiembre · un jardín solo para ti</p>
@@ -173,17 +176,31 @@
 
     <div class="opening" id="opening" role="dialog" aria-modal="true" aria-labelledby="opening-title">
       <div class="opening-aura" aria-hidden="true"></div>
+      <div class="opening-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="opening-garden" aria-hidden="true">
+        <i style="--x:5%;--h:30vh;--s:54px;--d:.1s"></i>
+        <i style="--x:13%;--h:42vh;--s:72px;--d:.35s"></i>
+        <i style="--x:23%;--h:25vh;--s:47px;--d:.7s"></i>
+        <i style="--x:33%;--h:18vh;--s:40px;--d:.5s"></i>
+        <i style="--x:67%;--h:19vh;--s:42px;--d:.8s"></i>
+        <i style="--x:77%;--h:27vh;--s:50px;--d:.2s"></i>
+        <i style="--x:87%;--h:41vh;--s:70px;--d:.6s"></i>
+        <i style="--x:96%;--h:29vh;--s:55px;--d:.4s"></i>
+      </div>
       <div class="opening-content">
+        <span class="opening-date">21 · 09</span>
         <span class="opening-flower" aria-hidden="true">✦</span>
         <p>Hay algo floreciendo para ti</p>
         <h2 id="opening-title">Lucía</h2>
+        <p class="opening-note">Preparé un rincón donde todo lo bonito lleva tu nombre.</p>
         <button id="openButton" type="button">
           <span>Abrir mi jardín</span>
           <span aria-hidden="true">→</span>
         </button>
       </div>
+      <p class="opening-footer" aria-hidden="true"><span>Flores amarillas</span><i></i><span>Hecho con cariño</span></p>
     </div>
 
-    <script src="script.js?v=20260921-2"></script>
+    <script src="script.js?v=20260921-3"></script>
   </body>
 </html>
