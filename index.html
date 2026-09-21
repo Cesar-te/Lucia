@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#101808" />
+    <meta
+      name="description"
+      content="Un jardín de flores amarillas hecho especialmente para Lucía."
+    />
+    <title>Flores amarillas para Lucía</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="is-locked">
+    <div class="noise" aria-hidden="true"></div>
+    <canvas id="sky" aria-hidden="true"></canvas>
+
+    <header class="topbar" aria-label="Encabezado">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-flower" aria-hidden="true">✦</span>
+        <span>Para Lucía</span>
+      </a>
+      <button class="sound-button" id="soundButton" type="button" aria-label="Activar música" aria-pressed="false">
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="sound-label">Música</span>
+      </button>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="orb orb-one" aria-hidden="true"></div>
+        <div class="orb orb-two" aria-hidden="true"></div>
+
+        <div class="hero-copy">
+          <p class="eyebrow reveal-item">21 de septiembre · un jardín solo para ti</p>
+          <h1 id="hero-title" class="reveal-item">
+            <span>Flores amarillas</span>
+            <em>para Lucía</em>
+          </h1>
+          <p class="intro reveal-item">
+            Si cada flor guardara un pensamiento bonito,<br />
+            este jardín entero llevaría tu nombre.
+          </p>
+          <button class="bloom-button reveal-item" id="bloomButton" type="button">
+            <span>Haz florecer tu jardín</span>
+            <span class="button-spark" aria-hidden="true">✦</span>
+          </button>
+        </div>
+
+        <div class="garden" id="garden" aria-hidden="true"></div>
+
+        <p class="garden-hint reveal-item" aria-hidden="true">
+          <span>✦</span> toca una flor
+        </p>
+
+        <div class="scroll-note reveal-item" aria-hidden="true">
+          <span>Un detalle para ti</span>
+          <i></i>
+        </div>
+      </section>
+
+      <section class="letter-section" id="carta" aria-labelledby="letter-title">
+        <div class="letter-glow" aria-hidden="true"></div>
+        <article class="letter-card">
+          <span class="letter-mark" aria-hidden="true">✦</span>
+          <p class="letter-kicker">Una pequeña verdad</p>
+          <h2 id="letter-title">Lucía,</h2>
+          <p>
+            No te pude dar flores en persona, así que te hice estas.
+            No son iguales, pero vienen con la misma intención. 💛
+          </p>
+          <div class="signature">
+            <strong>— César</strong>
+          </div>
+        </article>
+      </section>
+
+      <section class="reasons-section" aria-labelledby="reasons-title">
+        <div class="reasons-heading">
+          <p class="eyebrow">Cinco pequeños recordatorios</p>
+          <h2 id="reasons-title">Lo bonito<br />de ti</h2>
+          <p>Desliza para descubrirlos</p>
+        </div>
+
+        <div class="reasons-track" id="reasonsTrack" tabindex="0" aria-label="Mensajes para Lucía">
+          <article class="reason-card">
+            <span class="reason-number">01</span>
+            <span class="reason-icon" aria-hidden="true">☀</span>
+            <h3>Tu luz</h3>
+            <p>Tienes esa manera tan tuya de hacer más cálido cualquier lugar.</p>
+          </article>
+          <article class="reason-card">
+            <span class="reason-number">02</span>
+            <span class="reason-icon" aria-hidden="true">◡</span>
+            <h3>Tu sonrisa</h3>
+            <p>Una de esas cosas simples que pueden cambiar por completo un día.</p>
+          </article>
+          <article class="reason-card">
+            <span class="reason-number">03</span>
+            <span class="reason-icon" aria-hidden="true">✦</span>
+            <h3>Tu esencia</h3>
+            <p>No necesitas parecerte a nadie. Ser tú ya es algo extraordinario.</p>
+          </article>
+          <article class="reason-card">
+            <span class="reason-number">04</span>
+            <span class="reason-icon" aria-hidden="true">↟</span>
+            <h3>Tu fuerza</h3>
+            <p>Incluso en silencio, llevas dentro una fuerza digna de admirar.</p>
+          </article>
+          <article class="reason-card">
+            <span class="reason-number">05</span>
+            <span class="reason-icon" aria-hidden="true">♡</span>
+            <h3>Tu corazón</h3>
+            <p>La forma en que quieres y cuidas también hace florecer a los demás.</p>
+          </article>
+        </div>
+        <div class="swipe-indicator" aria-hidden="true"><i></i><span>desliza</span><b>→</b></div>
+      </section>
+
+      <section class="wish-section" aria-labelledby="wish-title">
+        <div class="wish-copy">
+          <p class="eyebrow">Y antes de irte...</p>
+          <h2 id="wish-title">Pide un deseo</h2>
+          <p>Mantén presionada la flor y deja que el jardín lo guarde.</p>
+        </div>
+        <button class="wish-flower" id="wishFlower" type="button" aria-label="Mantén presionado para pedir un deseo">
+          <span class="wish-halo"></span>
+          <span class="wish-center"></span>
+          <span class="wish-petals" aria-hidden="true"></span>
+          <span class="hold-ring" aria-hidden="true"></span>
+        </button>
+        <p class="wish-status" id="wishStatus" aria-live="polite">Mantén presionado</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Hecho con luz de septiembre</span>
+      <span class="footer-flower" aria-hidden="true">✦</span>
+      <span>para Lucía</span>
+    </footer>
+
+    <div class="opening" id="opening" role="dialog" aria-modal="true" aria-labelledby="opening-title">
+      <div class="opening-aura" aria-hidden="true"></div>
+      <div class="opening-content">
+        <span class="opening-flower" aria-hidden="true">✦</span>
+        <p>Hay algo floreciendo para ti</p>
+        <h2 id="opening-title">Lucía</h2>
+        <button id="openButton" type="button">
+          <span>Abrir mi jardín</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
