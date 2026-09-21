@@ -191,8 +191,8 @@ function illuminateName() {
   nameMagic.classList.add('lit');
   nameSection.classList.add('is-lit');
   nameMessage.textContent = alreadyLit
-    ? 'Hay luces que vale la pena encender una y otra vez.'
-    : 'Y desde entonces, la noche tuvo un poco más de luz.';
+    ? 'Y el tuyo siempre vuelve a encender algo bonito en mí.'
+    : 'Hay nombres que el corazón aprende a guardar.';
   const rect = nameMagic.getBoundingClientRect();
   burstAt(rect.left + rect.width / 2, Math.min(height * .68, rect.top + rect.height * .58), window.innerWidth < 700 ? 38 : 70);
   if (navigator.vibrate) navigator.vibrate([25, 35, 25]);
